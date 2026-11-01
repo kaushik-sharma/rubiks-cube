@@ -51,14 +51,20 @@ export function buildVirtual3x3(state) {
     for (const c of state) if (c.stickers.length === 1 && faceOfDir(c.stickers[0].dir) === f) { color = c.stickers[0].color; break; }
     cubies.push({ pos: [...n], stickers: [{ dir: [...n], color }] });
   }
-  // Edges: one per physical edge location. Both wings agree (paired), so a single
-  // wing's stickers represent the dedge; its ±0.5 coordinate collapses to 0.
-  const seen = new Set();
+  // Edges: one per physical edge location. A paired edge's pieces all agree, so
+  // any one of them represents it; its inner coordinate collapses to 0. On ODD
+  // cubes we pick the MIDGE (the piece whose along-edge coordinate is 0) as the
+  // representative — it is the genuine 3×3 edge, so the virtual cube still
+  // reports the true 3×3 skeleton even when the wings are not yet paired.
+  const rep = new Map();
   for (const c of state) {
     if (c.stickers.length !== 2) continue;
     const id = c.stickers.map((s) => faceOfDir(s.dir)).sort().join("");
-    if (seen.has(id)) continue;
-    seen.add(id);
+    const isMidge = c.pos.some((v) => v === 0);
+    if (rep.has(id) && !isMidge) continue;
+    rep.set(id, c);
+  }
+  for (const c of rep.values()) {
     const pos = c.pos.map((v) => (Math.abs(v) > 1 ? Math.sign(v) : 0));
     cubies.push({ pos, stickers: c.stickers.map((s) => ({ dir: [...s.dir], color: s.color })) });
   }
