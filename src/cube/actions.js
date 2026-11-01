@@ -54,10 +54,10 @@ export function scramble(count = SCRAMBLE_MOVES) {
 }
 
 // Request a solve. Deferred via a flag so it only runs after any in-flight /
-// queued moves have been applied. Supported for 3×3 (two-phase) and 4×4
+// queued moves have been applied. Supported for 3×3 (two-phase), 4×4 and 5×5
 // (reduction); other sizes are silently ignored (never faked).
 export function requestSolve() {
-  if (cube.size !== 3 && cube.size !== 4) return;
+  if (cube.size !== 3 && cube.size !== 4 && cube.size !== 5) return;
   engine.solveRequested = true;
   engine.plan = null; // reset the display; it repopulates once solved
 }

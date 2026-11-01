@@ -71,7 +71,7 @@ export function buildControlsOverlay() {
   const help = P.createDiv(
     "Drag: rotate view&nbsp;&nbsp;|&nbsp;&nbsp;" +
       "R L U D F B / M E S: turn (Shift = reverse)&nbsp;&nbsp;|&nbsp;&nbsp;" +
-      "Space: scramble&nbsp;&nbsp;|&nbsp;&nbsp;Enter: solve (3×3)&nbsp;&nbsp;|&nbsp;&nbsp;" +
+      "Space: scramble&nbsp;&nbsp;|&nbsp;&nbsp;Enter: solve&nbsp;&nbsp;|&nbsp;&nbsp;" +
       "Backspace: reset&nbsp;&nbsp;|&nbsp;&nbsp;3 / 4 / 5: cube size"
   );
   help.parent(topLeftColumn);

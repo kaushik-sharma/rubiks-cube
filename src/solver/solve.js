@@ -78,11 +78,11 @@ export function computeSolution() {
   if (cube.size === 3) {
     // Two-phase solver first; fall back to layer-by-layer if it declines.
     moves = solveKociemba(cube.cubies) || solveLayerByLayer();
-  } else if (cube.size === 4) {
+  } else if (cube.size === 4 || cube.size === 5) {
     // NxN reduction: centers → edge pairing → parity → 3×3 hand-off.
     const state = readState();
     const acc = [];
-    moves = solveReduction(state, (m) => acc.push(m), 4) ? acc : null;
+    moves = solveReduction(state, (m) => acc.push(m), cube.size) ? acc : null;
   }
   if (!moves) return null; // no solver could honestly solve this cube/size
 
